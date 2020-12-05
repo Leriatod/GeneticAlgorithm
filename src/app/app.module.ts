@@ -1,3 +1,5 @@
+import { Randomizer } from './models/randomizer';
+import { GeneticLandscapeSearch } from './models/genetic-landscape-search';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -24,7 +26,7 @@ import { FormsModule } from '@angular/forms';
     ]),
     NgbModule
   ],
-  providers: [],
+  providers: [GeneticLandscapeSearch, Randomizer],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GeneticLandscapeSearch } from '../models/genetic-landscape-search';
 
 @Component({
   selector: 'home',
@@ -6,13 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  settings = {
-    populationNumber: 500,
-    populationSize: 10000,
-    mutationRate: 0.2
-  };
 
-  constructor() { }
+  constructor(public geneticSearch: GeneticLandscapeSearch) { 
+    console.log(geneticSearch);
+    geneticSearch.doWork();
+  }
 
   ngOnInit(): void {
   }
