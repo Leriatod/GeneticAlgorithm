@@ -6,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  settings = {};
+  settings = {
+    populationNumber: 500,
+    populationSize: 10000,
+    mutationRate: 0.2
+  };
 
   constructor() { }
 

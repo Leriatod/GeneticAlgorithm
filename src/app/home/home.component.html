@@ -2,22 +2,48 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="customRange1">Кількість популяцій</label>
-                <input type="range" class="custom-range" id="customRange1">
+                <label for="populationNumber">Кількість популяцій</label>
+                <input 
+                    min="100"
+                    max="1000"
+                    step="100"
+                    [(ngModel)]="settings.populationNumber"
+                    name="populationNumber"
+                    type="range" 
+                    class="custom-range" 
+                    id="populationNumber">
                 <hr>
-                <pre class="text-success">Число поколінь, яке згенероване алгоритмом: </pre>
+                <pre>Число поколінь, яке згенероване алгоритмом: {{ settings.populationNumber }}</pre>
             </div>
+            <br>
             <div class="form-group">
-                <label for="customRange1">Кількість нащадків</label>
-                <input type="range" class="custom-range" id="customRange1">
+                <label for="populationSize">Кількість нащадків</label>
+                <input 
+                    min="500"
+                    max="25000"
+                    step="100"
+                    [(ngModel)]="settings.populationSize"
+                    name="populationSize"
+                    type="range" 
+                    class="custom-range" 
+                    id="populationSize">
                 <hr>
-                <pre class="text-success">Кількість нащадків в кожному поколінні: </pre>
+                <pre>Кількість нащадків в кожному поколінні: {{ settings.populationSize }}</pre>
             </div>
+            <br>
             <div class="form-group">
-                <label for="customRange1">Ймовірність мутацій</label>
-                <input type="range" class="custom-range" id="customRange1">
+                <label for="mutationRate">Ймовірність мутацій</label>
+                <input 
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    [(ngModel)]="settings.mutationRate"
+                    name="mutationRate"
+                    type="range" 
+                    class="custom-range" 
+                    id="mutationRate">
                 <hr>
-                <pre class="text-success">Рівень мутації для нащадків: </pre>
+                <pre>Рівень мутації для нащадків: {{ settings.mutationRate }}</pre>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Знайти оптимум</button>
