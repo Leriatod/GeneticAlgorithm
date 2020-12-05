@@ -46,7 +46,34 @@
                 <pre>Рівень мутації для нащадків: {{ geneticSearch.mutationRate }}</pre>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Знайти оптимум</button>
+            <div class="form-group">
+                <label for="error">Рівень похибки</label>
+                <input 
+                    min="0.0001"
+                    max="0.1"
+                    step="0.0009"
+                    [(ngModel)]="geneticSearch.error"
+                    name="error"
+                    type="range" 
+                    class="custom-range" 
+                    id="error">
+                <hr>
+                <pre>Рівень похибки фітнес функції: {{ geneticSearch.error }}</pre>
+            </div>
+            <br>
+            <button type="submit" (click)="setResultsFromGeneticAlgorithm()" class="btn btn-primary">Знайти оптимум</button>
+        </div>
+        <div *ngIf="bestIndividual" class="col-md-6">
+            <h3 class="text-center">Результат:</h3>
+            <br *ngFor="let i of [].constructor(4)">
+            <pre class="text-center">Аргумент X: {{ bestIndividual.x | number: '2.4-4' }}</pre>
+            <hr>
+            <pre class="text-center">Аргумент Y: {{ bestIndividual.y | number: '2.4-4' }}</pre>
+            <hr>
+            <pre class="text-center">Фітнес Функція: {{ bestIndividual.fitness | number: '2.4-4' }}</pre>
+            <hr>
+            <pre class="text-center">Час обчислення: {{ executionTime | number: '1.0-0' }} мс</pre>
+            <hr>
         </div>
     </div>
 </form>

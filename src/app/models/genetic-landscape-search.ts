@@ -4,10 +4,11 @@ import { Randomizer } from './randomizer';
 
 @Injectable()
 export class GeneticLandscapeSearch {
-    populationNumber: number   = 100;
+    populationNumber: number   = 200;
     populationSize:   number   = 1000;
     mutationRate:     number   = 0.2;
-                              
+    error:            number   = 0.01;
+    
     private readonly INTEGER32_MAX = 0x7fffffff; 
     private readonly SHIFT         = 32;
 
@@ -15,19 +16,20 @@ export class GeneticLandscapeSearch {
 
     constructor(private randomizer: Randomizer) {}
 
-    doWork() {
+    getLastPopulation() {
         this.generateStartPopulation();
         this.naturalSelection();
-        console.log(this.population);
+        
         for (let i = 0; i < this.populationNumber; i++) {
             this.generateNewPopulation();
             this.naturalSelection();
-            if (Math.abs(this.population[1].fitness - this.population[0].fitness) < 0.0001) break;
+            if (Math.abs(this.population[1].fitness - this.population[0].fitness) < this.error) 
+                break;
         }
-        console.log(this.population);
+        return this.population;
     }
 
-    generateNewPopulation() {
+    private generateNewPopulation() {
         var newPopulation = [];
         for (let i = 0; i < this.population.length; i++) {
             var individual1 = this.pickRandomIndividual();
@@ -37,16 +39,16 @@ export class GeneticLandscapeSearch {
 
             var childGenom = individual1.genom & mask | individual2.genom & ~mask;
             
-            if (this.randomizer.getRandom() < this.mutationRate) {
+            if (this.randomizer.getRandom() < this.mutationRate) 
                 childGenom ^= 1 << this.randomizer.getRandomInteger(0, this.SHIFT);
-            }
+            
             var child = new Individual(childGenom);
             newPopulation.push(child);
         }
         this.population = newPopulation;
     }
 
-    naturalSelection() {
+    private naturalSelection() {
         var survivors = [];
         for (let i = 0; i < this.population.length; i++) {
             var individual1 = this.pickRandomIndividual();
@@ -64,7 +66,7 @@ export class GeneticLandscapeSearch {
         return individual;
     }
 
-    generateStartPopulation() {
+    private generateStartPopulation() {
         this.population = [];
         for (let i = 0; i < this.populationSize; i++) {
             var genom = this.randomizer.getRandomInteger(0, this.INTEGER32_MAX);
